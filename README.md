@@ -1,21 +1,7 @@
-# music
+# 豆瓣网页移动版-VUE
 
-## Project setup
+### 启动
 ```
-npm install
-```
+$ npm run serve 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
