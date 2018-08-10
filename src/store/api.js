@@ -46,3 +46,28 @@ export const getElessar = async(id) => {
   const res = await axios.get(`/rex_api/elessar/subject/${id}`);
   return res.data;
 }
+
+export const getInterests = async(id) => {
+  const res = await axios.get(`/rex_api/book/${id}/interests?count=4&order_by=hot&start=0&ck=&for_mobile=1`);
+  return res.data;
+}
+
+export const getForumTopics = async(id) => {
+  const res = await axios.get(`/rex_api/book/${id}/forum_topics?start=0&count=5&ck=&for_mobile=1`);
+  return res.data;
+}
+
+export const getAnnotations = async(id) => {
+  const res = await axios.get(`/rex_api/book/${id}/annotations?start=0&count=5&ck=&for_mobile=1`);
+  return res.data;
+}
+
+export const getReviews = async(id) => {
+  const res = await axios.get(`/rex_api/book/${id}/reviews?start=0&count=5`);
+  return res.data;
+}
+
+export const getDoulists = async(id) => {
+  const res = await axios.get(`/rex_api/book/${id}/doulists?start=0&count=5&ck=&for_mobile=1`);
+  return res.data;
+}

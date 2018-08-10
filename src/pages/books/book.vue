@@ -77,58 +77,96 @@
         </div>
       </section>
       <section class="subject-comments">
-        <h2>大雪将至的短评(61)</h2>
+        <h2>{{book.title}}的短评({{comment.count}})</h2>
         <div class="bd" id="comment-list">
           <ul data-reactroot="" class="list comment-list">
-            <li class="">
-              <div class="desc"><a href="/people/1924391/"><img src="https://img3.doubanio.com/icon/up1924391-21.jpg" alt="金水"></a>
-                <div class="user-info"><strong>金水</strong><span class="rating-stars" data-rating="5"><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span></span>
+            <li class="" v-for="(interest, index) in comment.interests" :key="'interest-' + index">
+              <div class="desc"><a :href="{name: 'People', id: interest.user.uid}"><img :src="interest.user.avatar" :alt="interest.user.name" referrerPolicy="no-referrer"></a>
+                <div class="user-info"><strong>{{interest.user.name}}</strong><span class="rating-stars" data-rating="5"><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span></span>
                   <div class="date">1个月前</div>
                 </div>
               </div>
-              <p>山区小村版的斯通纳，碌碌无为的一生被压缩在170多页的篇幅里。</p>
+              <p>{{interest.comment}}</p>
               <div class="btn-info">
-                <div class="ic-btn ic-btn-like  left "><span class="text">11</span></div>
+                <div class="ic-btn ic-btn-like  left "><span class="text">{{interest.vote_count}}</span></div>
                 <div class="ic-btn ic-btn-more   right"></div>
               </div>
             </li>
-            <li class="">
-              <div class="desc"><a href="/people/2696818/"><img src="https://img1.doubanio.com/icon/up2696818-9.jpg" alt="已注销人士暗蓝"></a>
-                <div class="user-info"><strong>已注销人士暗蓝</strong><span class="rating-stars" data-rating="4"><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-gray"></span></span>
-                  <div class="date">1个月前</div>
+            <li class="go-comment-list"><a :href="{name: 'Comment', id: book.id}">查看全部短评</a></li>
+          </ul>
+        </div>
+      </section>
+      <div id="discussions-root">
+        <div data-reactroot="" class="subject-forum-topics">
+          <h2>讨论({{topic.total}})</h2>
+          <ul class="list">
+            <li v-for="(forum_topic, index) in topic.forum_topics" :key="'forum_topic-' + index"><a :href="{name: 'Discussion', id: forum_topic.id}"><h3>{{forum_topic.title}}</h3><div class="info">{{forum_topic.comments_count}}回应</div></a></li>
+            <li class="go-list"><a :href="{name: 'BookDiscussion', id: book.id}">查看全部讨论</a></li>
+          </ul>
+        </div>
+      </div>
+      <section class="subject-annotations">
+        <h2>{{book.title}}读书笔记({{annotation.total}})</h2>
+        <div class="bd">
+          <ul class="list">
+            <li class="annotation-item annotation-item-m" v-for="(item, index) in annotation.annotations" :key="'annotation-' + index">
+              <a href="/book/annotation/58009339" class="annotation-warp">
+                <span class="annotation-title">第{{item.page}}页</span>
+                <div class="annotation-content">
+                    <p><i class="textstart"></i>{{item.abstract}}<i class="textend"></i></p>
                 </div>
-              </div>
-              <p>男人的一生，其实不过几个瞬间：他逃离的瞬间，拥有爱的瞬间，担负起责任的瞬间，失去爱的瞬间，热爱祖国却徒劳无获的瞬间，怯懦的瞬间，以及最终一切不再，“大雪将至”的瞬间——而串联起这一切的，便是所谓的生活。每个瞬间都无法被夺去，但从一个瞬间到下一个，却需要付出万般的努力和勇气。所以不是所有人，都可以完整地走完这段路程，幸运与不幸的分野或许正在于此——可是没人说的清，体验了这一切，究竟意味着幸运，还是不幸。</p>
-              <div class="btn-info">
-                <div class="ic-btn ic-btn-like  left "><span class="text">11</span></div>
-                <div class="ic-btn ic-btn-more   right"></div>
-              </div>
+                <span class="annotation-author" v-show="item.author.name">{{item.author.name}}</span>
+            </a>
             </li>
-            <li class="">
-              <div class="desc"><a href="/people/3482644/"><img src="https://img3.doubanio.com/icon/up3482644-61.jpg" alt="图图"></a>
-                <div class="user-info"><strong>图图</strong><span class="rating-stars" data-rating="5"><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span></span>
-                  <div class="date">3周前</div>
+            <li class="go-annotation-list">
+              <a :href="{name: 'Annotation', id: book.id}">查看全部笔记</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="subject-rec">
+        <h2>喜欢失踪的孩子的人也喜欢</h2>
+        <div class="bd">
+          <ul>
+            <li>
+              <a href="/book/subject/26630480?from=rec" rel="">
+                <div class="wp">
+                  <img alt="毒木圣经" data-type="cover" src="https://img3.doubanio.com/view/subject/m/public/s29259503.jpg">
+                  <h3>毒木圣经</h3>
                 </div>
-              </div>
-              <p>看哭，这才不是乡村版斯通纳好么。“如果已经在开往地狱的路上，那就应该和魔鬼一起笑着去”，艾格尔的人生经历了大风大浪，他幸运顽强地活下来，他陪魔鬼走了一路。就这些了么？可这一路的风景并不好啊，艾格尔想转头，然而魔鬼说你已到终点。</p>
-              <div class="btn-info">
-                <div class="ic-btn ic-btn-like  left "><span class="text">6</span></div>
-                <div class="ic-btn ic-btn-more   right"></div>
-              </div>
+              </a>
             </li>
-            <li class="">
-              <div class="desc"><a href="/people/1078120/"><img src="https://img3.doubanio.com/icon/up1078120-55.jpg" alt="阿巴厮"></a>
-                <div class="user-info"><strong>阿巴厮</strong><span class="rating-stars" data-rating="5"><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span></span>
-                  <div class="date">1个月前</div>
+            <li>
+              <a href="/book/subject/27042344?from=rec" rel="">
+                <div class="wp">
+                  <img alt="醒来的女性" data-type="cover" src="https://img3.doubanio.com/view/subject/m/public/s29469414.jpg">
+                  <h3>醒来的女性</h3>
                 </div>
-              </div>
-              <p>高超的作者，就可以这样用简短的篇幅勾勒出平凡人的一生，而且让人不忍心读完读完也不忍心放下，写的好啊！温柔的不切实际，但是又似乎真是他的个性。明明是残酷的人生，但是没有一点怨恨，只是安安静静地流露出竟然是美好的诗意。在周日的早晨就翻完一本这样的书，简直是对生活的一次美好冲击。</p>
-              <div class="btn-info">
-                <div class="ic-btn ic-btn-like  left "><span class="text">4</span></div>
-                <div class="ic-btn ic-btn-more   right"></div>
-              </div>
+              </a>
             </li>
-            <li class="go-comment-list"><a href="/book/subject/27115714/comments?from=subject">查看全部短评</a></li>
+          </ul>
+        </div>
+      </section>
+      <section class="subject-reviews">
+        <h2>{{book.title}}的书评({{review.total}})</h2>
+        <div class="bd">
+          <ul class="list">
+            <li v-for="(item, index) in review.reviews" :key="'review-' + index">
+              <a href="/book/review/9469890/">
+                <h3>{{item.title}}</h3>
+                <div>
+                  <span class="username" v-show="item.user">{{item.user.name}}</span>
+                  <span class="rating-stars" data-rating="100"><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span><span class="rating-star rating-star-medium-full"></span></span>
+                </div>
+                <p class="abstract">
+                 	{{item.abstract}}
+                </p>
+                <div class="info">
+                  {{item.likers_count}} 有用
+                </div>
+              </a>
+            </li>
+            <li class="go-review-list"><a :href="{name: 'BookReview', id: book.id}">查看全部书评</a></li>
           </ul>
         </div>
       </section>
@@ -139,7 +177,7 @@
 import HeaderNav from '@/components/header'
 import RatingStarsNumber from '@/components/RatingStarsNumber'
 
-import { getBook, getBookMarket, getElessar } from '@/store/api'
+import { getBook, getBookMarket, getElessar, getInterests, getForumTopics, getAnnotations, getReviews } from '@/store/api'
 
 export default {
   data() {
@@ -150,6 +188,10 @@ export default {
       book: {},
       bookMarket: {},
       elessar: {},
+      comment: {},
+      topic: {},
+      annotation: {},
+      review: {},
       dataRating: '',
       rating: {
         average: '',
@@ -170,6 +212,10 @@ export default {
       this.book = await getBook(this.$route.params.id);
       this.bookMarket = await getBookMarket(this.$route.params.id);
       this.elessar = await getElessar(this.$route.params.id);
+      this.comment = await getInterests(this.$route.params.id);
+      this.topic = await getForumTopics(this.$route.params.id);
+      this.annotation = await getAnnotations(this.$route.params.id);
+      this.review = await getReviews(this.$route.params.id);
 
       this.ratingAverage = this.rating.average;
       this.numRaters = this.rating.numRaters;
